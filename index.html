@@ -814,24 +814,22 @@
     function drawBackground() {
       ctx.clearRect(0, 0, W, H);
 
-      const sky = ctx.createLinearGradient(0, 0, 0, H);
-      sky.addColorStop(0, "#c5f6fa");
-      sky.addColorStop(0.45, "#fff3bf");
-      sky.addColorStop(1, "#ffd8a8");
-      ctx.fillStyle = sky;
+      ctx.fillStyle = "#f8fafc";
       ctx.fillRect(0, 0, W, H);
 
-      ctx.fillStyle = "rgba(255,255,255,0.35)";
-      for (let i = 0; i < 9; i++) {
-        const x = 70 + i * 110;
-        const y = 42 + Math.sin(i) * 14;
-        drawCloud(x, y, 28 + (i % 3) * 5);
+      ctx.fillStyle = "#eef2f7";
+      ctx.fillRect(0, 0, W, lane.top);
+
+      ctx.strokeStyle = "rgba(17, 24, 39, 0.05)";
+      ctx.lineWidth = 1;
+      for (let x = 40; x < W; x += 60) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, H);
+        ctx.stroke();
       }
 
-      const laneGradient = ctx.createLinearGradient(0, lane.top, 0, lane.bottom);
-      laneGradient.addColorStop(0, "#f1c06b");
-      laneGradient.addColorStop(1, "#d89442");
-      ctx.fillStyle = laneGradient;
+      ctx.fillStyle = "#d9b77f";
       ctx.beginPath();
       ctx.moveTo(lane.leftTop, lane.top);
       ctx.lineTo(lane.rightTop, lane.top);
@@ -840,8 +838,8 @@
       ctx.closePath();
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(94, 58, 20, 0.22)";
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(17, 24, 39, 0.16)";
+      ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(lane.leftTop, lane.top);
       ctx.lineTo(lane.leftBottom, lane.bottom);
@@ -849,7 +847,7 @@
       ctx.lineTo(lane.rightBottom, lane.bottom);
       ctx.stroke();
 
-      ctx.strokeStyle = "rgba(255,255,255,0.22)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
       ctx.lineWidth = 1;
       for (let i = 1; i < 7; i++) {
         const ratio = i / 7;
@@ -859,14 +857,14 @@
         ctx.stroke();
       }
 
-      ctx.fillStyle = "rgba(38, 50, 56, 0.12)";
-      ctx.fillRect(lane.leftTop + 4, lane.top + 52, lane.rightTop - lane.leftTop - 8, 8);
+      ctx.fillStyle = "rgba(17, 24, 39, 0.08)";
+      ctx.fillRect(lane.leftTop + 6, lane.top + 52, lane.rightTop - lane.leftTop - 12, 5);
 
-      ctx.fillStyle = "rgba(255, 255, 255, 0.52)";
+      ctx.fillStyle = "rgba(17, 24, 39, 0.18)";
       [0.38, 0.5, 0.62].forEach(ratio => {
         const x = lane.leftBottom + (lane.rightBottom - lane.leftBottom) * ratio;
         ctx.beginPath();
-        ctx.arc(x, lane.bottom - 82, 5, 0, Math.PI * 2);
+        ctx.arc(x, lane.bottom - 82, 4, 0, Math.PI * 2);
         ctx.fill();
       });
     }
@@ -885,9 +883,9 @@
       const spin = Number(spinRange.value) / 60;
 
       ctx.save();
-      ctx.setLineDash([10, 12]);
-      ctx.strokeStyle = "rgba(92, 124, 250, 0.65)";
-      ctx.lineWidth = 4;
+      ctx.setLineDash([8, 10]);
+      ctx.strokeStyle = "rgba(47, 109, 246, 0.46)";
+      ctx.lineWidth = 3;
       ctx.beginPath();
       for (let i = 0; i <= 40; i++) {
         const p = i / 40;
@@ -899,9 +897,9 @@
       ctx.stroke();
       ctx.restore();
 
-      ctx.fillStyle = "rgba(92, 124, 250, 0.95)";
+      ctx.fillStyle = "rgba(47, 109, 246, 0.75)";
       ctx.beginPath();
-      ctx.arc(targetX, pinDeckY, 7, 0, Math.PI * 2);
+      ctx.arc(targetX, pinDeckY, 6, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -920,31 +918,26 @@
       ctx.translate(x, y);
       ctx.scale(scale, scale);
 
-      ctx.fillStyle = "rgba(0,0,0,0.18)";
+      ctx.fillStyle = "rgba(17, 24, 39, 0.14)";
       ctx.beginPath();
-      ctx.ellipse(0, 19, 12, 4, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 19, 11, 3.5, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      const body = ctx.createLinearGradient(-10, -22, 10, 20);
-      body.addColorStop(0, "#ffffff");
-      body.addColorStop(0.7, "#fff4e6");
-      body.addColorStop(1, "#ffd8a8");
-      ctx.fillStyle = body;
+      ctx.fillStyle = "#fffaf2";
+      ctx.strokeStyle = "rgba(17, 24, 39, 0.18)";
+      ctx.lineWidth = 1.3;
       ctx.beginPath();
       ctx.moveTo(-6, -24);
-      ctx.bezierCurveTo(-16, -14, -10, 2, -14, 16);
-      ctx.quadraticCurveTo(0, 24, 14, 16);
-      ctx.bezierCurveTo(10, 2, 16, -14, 6, -24);
-      ctx.quadraticCurveTo(0, -29, -6, -24);
+      ctx.bezierCurveTo(-15, -13, -10, 2, -13, 15);
+      ctx.quadraticCurveTo(0, 23, 13, 15);
+      ctx.bezierCurveTo(10, 2, 15, -13, 6, -24);
+      ctx.quadraticCurveTo(0, -28, -6, -24);
       ctx.fill();
-
-      ctx.strokeStyle = "rgba(38, 50, 56, 0.18)";
-      ctx.lineWidth = 1.4;
       ctx.stroke();
 
-      ctx.fillStyle = "#ff6b6b";
-      ctx.fillRect(-8, -12, 16, 4);
-      ctx.fillRect(-9, -6, 18, 4);
+      ctx.fillStyle = "#d85c5c";
+      ctx.fillRect(-8, -11, 16, 3);
+      ctx.fillRect(-8, -6, 16, 3);
       ctx.restore();
     }
 
@@ -976,27 +969,26 @@
       ctx.translate(x, y);
       ctx.rotate(rotation);
 
-      ctx.fillStyle = "rgba(0,0,0,0.22)";
+      ctx.fillStyle = "rgba(17, 24, 39, 0.16)";
       ctx.beginPath();
-      ctx.ellipse(4, radius + 7, radius * 0.95, 6, 0, 0, Math.PI * 2);
+      ctx.ellipse(4, radius + 7, radius * 0.9, 5, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      const ballGradient = ctx.createRadialGradient(-8, -10, 4, 0, 0, radius);
-      ballGradient.addColorStop(0, "#91a7ff");
-      ballGradient.addColorStop(0.48, "#5c7cfa");
-      ballGradient.addColorStop(1, "#364fc7");
-      ctx.fillStyle = ballGradient;
+      ctx.fillStyle = "#2f6df6";
+      ctx.strokeStyle = "rgba(17, 24, 39, 0.18)";
+      ctx.lineWidth = 1.4;
       ctx.beginPath();
       ctx.arc(0, 0, radius, 0, Math.PI * 2);
       ctx.fill();
+      ctx.stroke();
 
-      ctx.fillStyle = "rgba(255,255,255,0.55)";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.46)";
       ctx.beginPath();
-      ctx.arc(-7, -7, radius * 0.25, 0, Math.PI * 2);
+      ctx.arc(-7, -7, radius * 0.23, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = "rgba(20, 30, 70, 0.5)";
-      [[5, -8, 2.5], [10, -2, 2.2], [3, 1, 2.1]].forEach(([hx, hy, hr]) => {
+      ctx.fillStyle = "rgba(15, 23, 42, 0.38)";
+      [[5, -8, 2.5], [10, -2, 2.1], [3, 1, 2]].forEach(([hx, hy, hr]) => {
         ctx.beginPath();
         ctx.arc(hx, hy, hr, 0, Math.PI * 2);
         ctx.fill();
@@ -1015,19 +1007,23 @@
 
     function drawHudOnCanvas() {
       ctx.save();
-      ctx.fillStyle = "rgba(255,255,255,0.74)";
-      roundedRect(ctx, 22, 20, 250, 48, 18);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.78)";
+      roundedRect(ctx, 22, 20, 232, 44, 14);
       ctx.fill();
-      ctx.fillStyle = "#263238";
-      ctx.font = "900 18px ui-rounded, system-ui, sans-serif";
-      ctx.fillText(`Frame ${Math.min(state.currentFrame + 1, 10)} · Roll ${state.gameOver ? "End" : getRollNumberInFrame()}`, 42, 50);
+      ctx.strokeStyle = "rgba(17, 24, 39, 0.08)";
+      ctx.stroke();
+      ctx.fillStyle = "#111827";
+      ctx.font = "800 17px -apple-system, BlinkMacSystemFont, system-ui, sans-serif";
+      ctx.fillText(`Frame ${Math.min(state.currentFrame + 1, 10)} · Roll ${state.gameOver ? "End" : getRollNumberInFrame()}`, 40, 48);
 
-      ctx.fillStyle = "rgba(255,255,255,0.74)";
-      roundedRect(ctx, W - 216, 20, 194, 48, 18);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.78)";
+      roundedRect(ctx, W - 178, 20, 156, 44, 14);
       ctx.fill();
-      ctx.fillStyle = "#263238";
-      ctx.font = "900 18px ui-rounded, system-ui, sans-serif";
-      ctx.fillText(`Pins ${getStandingPins().length}`, W - 186, 50);
+      ctx.strokeStyle = "rgba(17, 24, 39, 0.08)";
+      ctx.stroke();
+      ctx.fillStyle = "#111827";
+      ctx.font = "800 17px -apple-system, BlinkMacSystemFont, system-ui, sans-serif";
+      ctx.fillText(`Pins ${getStandingPins().length}`, W - 148, 48);
       ctx.restore();
     }
 
